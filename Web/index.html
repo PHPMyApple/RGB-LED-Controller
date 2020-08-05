@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content=" RGB LED Controller Dashboard">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <title>RGB LED Controller - Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/icon.png">
+
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/toast.min.css">
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap.min.js"></script>
+    <script src="../assets/popper.min.js"></script>
+    <script src="../assets/iro.min.js"></script>
+    <script src="../assets/qrious.min.js"></script>
+    <script src="../assets/toast.min.js"></script>
+</head>
+<style>
+    @keyframes fadein {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .pageContainer {
+        animation: fadein 0.2s;
+    }
+
+    @media (pointer:none),
+    (pointer:coarse) {
+        .mres {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    *:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand">RGB LED Controller Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" id="dashboard.html-li">
+                    <a class="nav-link" style="cursor: pointer" onclick="switchPage('dashboard.html')">Dashboard</a>
+                </li>
+                <li class="nav-item" id="settings.html-li">
+                    <a class="nav-link" style="cursor: pointer" onclick="switchPage('settings.html')">Einstellungen</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="page"></div>
+</body>
+<script src="main.js"></script>
+<script>
+    var currentPage;
+    $(document).ready(function () {
+        loadConfig();
+    });
+
+    function switchPage(page) {
+        if (page != currentPage) {
+            document.getElementById("dashboard.html-li").classList.remove("active");
+            document.getElementById("settings.html-li").classList.remove("active");
+
+            document.getElementById(page + "-li").classList.add("active");
+
+            currentPage = page;
+            if (localStorage.getItem('devices') == null && page == "dashboard.html") {
+                $('#page').load("helloworld.html");
+            } else {
+                $('#page').load(page);
+            }
+        }
+    }
+</script>
+
+</html>
